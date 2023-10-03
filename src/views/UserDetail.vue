@@ -1,5 +1,6 @@
 <template>
-  <h2>Usuario</h2>
+  <h2 class="title">Usuario</h2>
+  <LogoutBtn />
   <span>Id: {{ user.id }}</span>
   <p>Correo: {{ user.email }}</p>
   <p>Username: {{ user.username }} </p>
@@ -10,6 +11,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import LogoutBtn from '../components/LogoutBtn.vue';
 
 const userId = ref(null)
 const user = ref({});

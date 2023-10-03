@@ -7,26 +7,28 @@ import UserDetail from '../views/UserDetail.vue';
 import ProductDetail from '../views/ProductDetail.vue';
 
 const routes = [
-  { path: '/', redirect: '/login' },
+  { path: '/', redirect: '/login', meta: { requiresAuth: false} },
 
-  { path: '/login', component: Login },
+  { path: '/login', component: Login, meta: { requiresAuth: false} },
 
-  { path: '/menu', component: Menu },
+  { path: '/menu', component: Menu, meta: { requiresAuth: true } },
 
-  { path: '/users', component: UserList },
+  { path: '/users', component: UserList, meta: { requiresAuth: true } },
 
-  { path: '/products', component: ProductList },
+  { path: '/products', component: ProductList, meta: { requiresAuth: true } },
 
   { 
     path: '/users/:id',
     component: UserDetail,
-    props: true
+    props: true,
+    meta: { requiresAuth: true }
   },
 
   { 
     path: '/products/:id',
     component: ProductDetail,
-    props: true 
+    props: true,
+    meta: { requiresAuth: true }
   },
 ];
 
@@ -34,5 +36,15 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('token');
+
+  if (to.matched.some((route) => route.meta.requiresAuth) && !isAuthenticated) {
+    next('/login')
+  } else {
+    next();
+  }
+})
 
 export default router;

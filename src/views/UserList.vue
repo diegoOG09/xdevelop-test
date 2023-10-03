@@ -1,82 +1,85 @@
 <template>
-  <h2>Usuarios</h2>
+  <h2 class="title">Usuarios</h2>
+  <div class="userlist container">
+    <div class="userlist-table">
+      <div class="userlist-table__buttons">
+        <button id="userlist-table__idSortBtn" class="userlist-table__btn" @click="sortByField('id')"><i class="fa-solid fa-sort"></i>Ordenar por ID</button>
+        <button id="userlist-table__emailSortBtn" class="userlist-table__btn" @click="sortByField('email')"><i class="fa-solid fa-sort"></i>Ordenar por Correo</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre de Usuario</th>
+            <th>Correo</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="user in visibleUsers" :key="user.id">
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.name ? user.name.firstname : 'N/A' }}</td>
+            <td>{{ user.name ? user.name.lastname : 'N/A' }}</td>
+            <td>
+              <router-link :to="'/users/' + user.id">Ver más</router-link>
+              <button @click="deleteVisibleUser(user.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button @click="resetUsers">Resetear Usuarios</button>
+      <button @click="showNewUserForm">Agregar Usuario</button>
+    </div>
 
-  <div>
-    <h1>Lista de Usuarios</h1>
-    <button @click="sortByField('id')">Ordenar por ID</button>
-    <button @click="sortByField('email')">Ordenar por Correo</button>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre de Usuario</th>
-          <th>Correo</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in visibleUsers" :key="user.id">
-          <td>{{ user.id }}</td>
-          <td>{{ user.username }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.name ? user.name.firstname : 'N/A' }}</td>
-          <td>{{ user.name ? user.name.lastname : 'N/A' }}</td>
-          <td>
-            <router-link :to="'/users/' + user.id">Ver más</router-link>
-            <button @click="deleteVisibleUser(user.id)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <button @click="resetUsers">Resetear Usuarios</button>
-    <button @click="showNewUserForm">Agregar Usuario</button>
-  </div>
+    <!-- Mostrar el formulario de agregar usuario si showAddUserForm es true -->
+    <div v-if="showAddUserForm">
+      <h2>Agregar Usuario</h2>
+      <form @submit.prevent="addUser">
+        <!-- Campos del formulario para agregar un nuevo usuario -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" v-model="newUser.email" required>
 
-  <!-- Mostrar el formulario de agregar usuario si showAddUserForm es true -->
-  <div v-if="showAddUserForm">
-    <h2>Agregar Usuario</h2>
-    <form @submit.prevent="addUser">
-      <!-- Campos del formulario para agregar un nuevo usuario -->
-      <label for="email">Email:</label>
-      <input type="email" id="email" v-model="newUser.email" required>
+        <label for="username">Username:</label>
+        <input type="text" id="username" v-model="newUser.username" required>
 
-      <label for="username">Username:</label>
-      <input type="text" id="username" v-model="newUser.username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" v-model="newUser.password" required>
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" v-model="newUser.password" required>
+        <label for="firstname">FirstName:</label>
+        <input type="text" id="firstname" v-model="newUser.firstname" required>
 
-      <label for="firstname">FirstName:</label>
-      <input type="text" id="firstname" v-model="newUser.firstname" required>
+        <label for="lastname">LastName:</label>
+        <input type="lastname" id="lastname" v-model="newUser.lastname" required>
 
-      <label for="lastname">LastName:</label>
-      <input type="lastname" id="lastname" v-model="newUser.lastname" required>
+        <label for="city">city:</label>
+        <input type="city" id="city" v-model="newUser.city" required>
+        <label for="street">street:</label>
+        <input type="street" id="street" v-model="newUser.street" required>
+        <label for="number">number:</label>
+        <input type="number" id="number" v-model="newUser.number" required>
+        <label for="zipcode">zipcode:</label>
+        <input type="zipcode" id="zipcode" v-model="newUser.zipcode" required>
+        <label for="lat">lat:</label>
+        <input type="lat" id="lat" v-model="newUser.lat" required>
+        <label for="long">long:</label>
+        <input type="long" id="long" v-model="newUser.long" required>
 
-      <label for="city">city:</label>
-      <input type="city" id="city" v-model="newUser.city" required>
-      <label for="street">street:</label>
-      <input type="street" id="street" v-model="newUser.street" required>
-      <label for="number">number:</label>
-      <input type="number" id="number" v-model="newUser.number" required>
-      <label for="zipcode">zipcode:</label>
-      <input type="zipcode" id="zipcode" v-model="newUser.zipcode" required>
-      <label for="lat">lat:</label>
-      <input type="lat" id="lat" v-model="newUser.lat" required>
-      <label for="long">long:</label>
-      <input type="long" id="long" v-model="newUser.long" required>
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" v-model="newUser.phone" required>
 
-      <label for="phone">Phone:</label>
-      <input type="tel" id="phone" v-model="newUser.phone" required>
-
-      <button type="submit">Agregar</button>
-    </form>
+        <button type="submit">Agregar</button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
+import LogoutBtn from '../components/LogoutBtn.vue';
 
 const users = ref([]);
 const visibleUsers = ref([]);
@@ -206,6 +209,36 @@ const addUser = async () => {
 
 </script>
 
-<style>
+<style lang="scss">
+@import '../style.scss';
+.userlist {
+  .userlist-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
 
+    .userlist-table__buttons {
+      display: flex;
+      gap: 1rem;
+      .userlist-table__btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 10px;
+        background-color: $light-green;
+        padding: .8rem .5rem;
+        cursor: pointer;
+        gap: .4rem;
+        width: 10rem;
+      }
+    }
+
+    
+
+  }
+}
 </style>

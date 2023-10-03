@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>Lista de Productos</h1>
+    <h1 class="title">Lista de Productos</h1>
+    <LogoutBtn />
     <button @click="toggleSortOrder">Alternar Orden</button>
     <p>Da clic en "ID" para ordenar por ID o clic en "Precio" para ordenar por precio</p>
     <table>
@@ -27,7 +28,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue';
+import LogoutBtn from '../components/LogoutBtn.vue';
 
 const products = ref([])
 const sortOrder = ref('asc');
