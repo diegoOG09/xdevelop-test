@@ -21,8 +21,8 @@
           <td>{{ user.id }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.name.firstname }}</td>
-          <td>{{ user.name.lastname }}</td>
+          <td>{{ user.name ? user.name.firstname : 'N/A' }}</td>
+          <td>{{ user.name ? user.name.lastname : 'N/A' }}</td>
           <td>
             <router-link :to="'/users/' + user.id">Ver más</router-link>
             <button @click="deleteVisibleUser(user.id)">Eliminar</button>
@@ -31,17 +31,71 @@
       </tbody>
     </table>
     <button @click="resetUsers">Resetear Usuarios</button>
-    <button @click="addUser">Agregar Usuario</button>
+    <button @click="showNewUserForm">Agregar Usuario</button>
+  </div>
+
+  <!-- Mostrar el formulario de agregar usuario si showAddUserForm es true -->
+  <div v-if="showAddUserForm">
+    <h2>Agregar Usuario</h2>
+    <form @submit.prevent="addUser">
+      <!-- Campos del formulario para agregar un nuevo usuario -->
+      <label for="email">Email:</label>
+      <input type="email" id="email" v-model="newUser.email" required>
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" v-model="newUser.username" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" v-model="newUser.password" required>
+
+      <label for="firstname">FirstName:</label>
+      <input type="text" id="firstname" v-model="newUser.firstname" required>
+
+      <label for="lastname">LastName:</label>
+      <input type="lastname" id="lastname" v-model="newUser.lastname" required>
+
+      <label for="city">city:</label>
+      <input type="city" id="city" v-model="newUser.city" required>
+      <label for="street">street:</label>
+      <input type="street" id="street" v-model="newUser.street" required>
+      <label for="number">number:</label>
+      <input type="number" id="number" v-model="newUser.number" required>
+      <label for="zipcode">zipcode:</label>
+      <input type="zipcode" id="zipcode" v-model="newUser.zipcode" required>
+      <label for="lat">lat:</label>
+      <input type="lat" id="lat" v-model="newUser.lat" required>
+      <label for="long">long:</label>
+      <input type="long" id="long" v-model="newUser.long" required>
+
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" v-model="newUser.phone" required>
+
+      <button type="submit">Agregar</button>
+    </form>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import router from '../router';
 
 const users = ref([]);
 const visibleUsers = ref([]);
 const originalUsers = ref([]);
+const showAddUserForm = ref(false);
+const newUser = ref({
+  username: '',
+  email: '',
+  password: '',
+  firstname: '',
+  lastname: '',
+  city: '',
+  street: '',
+  number: 0,
+  zipcode: '',
+  lat: '',
+  long: '',
+  phone: '',
+});
 const sorting = ref({ field: 'id', direction: 'asc' });
 
 onMounted(async () => {
@@ -106,39 +160,42 @@ const resetUsers = () => {
   visibleUsers.value = [...originalUsers.value];
 }
 
+const showNewUserForm = () => {
+  showAddUserForm.value = true;
+}
+
 const addUser = async () => {
   try {
     const response = await fetch('https://fakestoreapi.com/users', {
       method: 'POST',
-      body: JSON.stringify({
-        email: 'Diego@gmail.com',
-        username: 'diego',
-        password: 'm38rmF$',
-        name: {
-          firstname: 'Diego',
-          lastname: 'Salinas',
-        },
-        address: {
-          city: 'kilcoole',
-          street: '7835 new road',
-          number: 3,
-          zipcode: '12926-3874',
-          geolocation: {
-            lat: '-37.3159',
-            long: '81.1496',
-          },
-        },
-        phone: '1-570-236-7033',
-      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newUser.value),
     });
 
     if (response.ok) {
-      const nuevoUsuario = await response.json();
+      const newUserResponse = await response.json();
+      console.log('Usuario agregado con éxito:', newUserResponse);
 
-      // Agregar el nuevo usuario a la lista visibleUsers
-      visibleUsers.value.push(nuevoUsuario);
+      users.value.push(newUserResponse);
 
-      console.log('Usuario agregado con éxito:', nuevoUsuario);
+      // Después de agregar con éxito, puedes limpiar el formulario y ocultar el formulario de agregar
+      newUser.value = {
+        username: '',
+        email: '',
+        password: '',
+        firstname: '',
+        lastname: '',
+        city: '',
+        street: '',
+        number: 0,
+        zipcode: '',
+        lat: '',
+        long: '',
+        phone: '',
+      };
+      showAddUserForm.value = false;
     } else {
       console.error('Error al agregar usuario:', response.status);
     }
