@@ -4,6 +4,7 @@ import Menu from '../views/Menu.vue';
 import UserList from '../views/UserList.vue';
 import ProductList from '../views/ProductList.vue';
 import UserDetail from '../views/UserDetail.vue';
+import ProductDetail from '../views/ProductDetail.vue';
 
 const routes = [
   { path: '/', redirect: '/login' },
@@ -21,7 +22,12 @@ const routes = [
     component: UserDetail,
     props: true
   },
-  // { path: '/products/:id', component: () => import('@/views/ProductDetail.vue')},
+
+  { 
+    path: '/products/:id',
+    component: ProductDetail,
+    props: true 
+  },
 ];
 
 const router = createRouter({
