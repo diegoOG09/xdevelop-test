@@ -273,6 +273,7 @@ const addUser = async () => {
     }
     .usersTable {
       color: $light;
+      width: 100%;
 
       tr {
         height: 2rem;
@@ -324,6 +325,35 @@ const addUser = async () => {
         cursor: pointer;
         gap: .4rem;
         width: 10rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .userlist {
+    width: 100%;
+    .userlist-table {
+      .usersTable {
+        display: block;
+        table-layout: fixed;
+        width: 100%;
+
+        th {
+          font-size: .5rem;
+        }
+
+        tr {
+          height: 3.5rem;
+        }
+
+        td {
+          font-size: .7rem;
+        }
+
+        .delete-user {
+          height: 2rem;
+        }
       }
     }
   }

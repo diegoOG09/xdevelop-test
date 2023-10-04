@@ -72,10 +72,20 @@ onMounted(async () => {
     flex-direction: row;
     gap: .5rem;
     p {
-      background-color: #774b14;
+      background-color: #183D3D;
       border-radius: 5px;
       padding: .25rem .5rem;
-      color: #ff8c00;
+      color: #93B1A6;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .user-details {
+    width: 90%;
+
+    p {
+      width: 4.5rem;
     }
   }
 }
