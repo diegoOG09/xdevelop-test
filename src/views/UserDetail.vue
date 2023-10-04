@@ -33,7 +33,7 @@
 import { ref, onMounted } from 'vue';
 import LogoutBtn from '../components/LogoutBtn.vue';
 
-const userId = ref(null)
+const userId = ref(null);
 const user = ref({});
 
 const props = defineProps({
@@ -43,7 +43,7 @@ const props = defineProps({
 const id = props.id;
 
 onMounted(async () => {
-  userId.value = id
+  userId.value = id;
   try {
     const response = await fetch(`https://fakestoreapi.com/users/${userId.value}`);
     const userData = await response.json();
@@ -52,21 +52,19 @@ onMounted(async () => {
     console.error('Error al obtener los detalles del usuario:', error);
   }
 });
-
 </script>
 
 <style lang="scss">
 @import '../style.scss';
 .user-details {
+  color: $light;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: .5rem;
-  margin-top: 4rem;
+  justify-content: center;
   margin-bottom: 4rem;
+  margin-top: 4rem;
   width: 40%;
-  color: $light;
-
   .user-record {
     display: flex;
     flex-direction: row;
@@ -74,12 +72,11 @@ onMounted(async () => {
     p {
       background-color: #183D3D;
       border-radius: 5px;
-      padding: .25rem .5rem;
       color: #93B1A6;
+      padding: .25rem .5rem;
     }
   }
 }
-
 @media only screen and (max-width: 428px) {
   .user-details {
     width: 90%;

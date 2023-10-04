@@ -10,7 +10,6 @@
     </div>
     <LogoutBtn />
   </div>
-  
 </template>
 
 <script setup>
@@ -22,38 +21,34 @@ import LogoutBtn from '../components/LogoutBtn.vue';
 
 .menu {
   .header {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
   }
   .menu-buttons {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: 2rem;
-    margin-top: 5%;
+    justify-content: center;
     margin-bottom: 4rem;
-
+    margin-top: 5%;
     p {
       color: $green;
     }
-
     .menu-btn {
-      text-decoration: none;
-      color: $light;
       background-color: $light-green;
-      padding: 2rem;
-      width: 7rem;
-      text-align: center;
       border-radius: 10px;
-
+      color: $light;
+      padding: 2rem;
+      text-align: center;
+      text-decoration: none;
+      width: 7rem;
       i {
         margin-right: .5rem;
       }
     }
   }
 }
-
 </style>

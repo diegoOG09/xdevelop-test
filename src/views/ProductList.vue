@@ -25,7 +25,6 @@
         </tbody>
       </table>
       <div v-else>
-        <!-- Aquí puedes agregar el código HTML de tu spinner -->
         <span class="loader"></span>
       </div>
     </div>
@@ -37,7 +36,7 @@
 import { ref, computed, onMounted } from 'vue';
 import LogoutBtn from '../components/LogoutBtn.vue';
 
-const products = ref([])
+const products = ref([]);
 const sortOrder = ref('asc');
 const sortField = ref('id');
 const isLoading = ref(true);
@@ -50,9 +49,9 @@ onMounted(async () => {
     setTimeout(() => {
       isLoading.value = false;
     }, 0); 
-    sortById()
+    sortById();
   } catch (error) {
-    console.log('Error al obtener productos:', error)
+    console.log('Error al obtener productos:', error);
   }
 });
 
@@ -70,7 +69,6 @@ const sortedProducts2 = computed(() => {
       sortField.value === 'price' ? b.price - a.price : b.id - a.id
     );
   } else {
-    // No se ordena
     return [...products.value];
   }
 });
@@ -95,57 +93,46 @@ const toggleSortOrder = () => {
 const sortById = () => {
   sortedProducts.value = [...products.value].sort((a, b) => a.id - b.id);
 };
-
-const sortByPrice = () => {
-  sortedProducts.value = [...products.value].sort((a, b) => a.price - b.price);
-};
-
-
 </script>
 
 <style lang="scss">
 @import '../style.scss';
-
 .loader {
-    width: 48px;
-    height: 48px;
-    border: 5px solid #FFF;
-    border-bottom-color: #FF3D00;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    }
-
-    @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    } 
-
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: #FF3D00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
 .userlist-table > p {
   color: $light;
 }
-
 .userlist-table {
   .alternateOrderBtn {
+    align-items: center;
+    background-color: $light-green;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    border-radius: 10px;
-    background-color: $light-green;
-    padding: .8rem .5rem;
-    cursor: pointer;
     gap: .4rem;
+    justify-content: center;
+    padding: .8rem .5rem;
     width: 10rem;
   }
 }
-
 @media only screen and (max-width: 428px) {
   .userlist-table > p {
     text-align: center;

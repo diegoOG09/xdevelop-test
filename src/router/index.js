@@ -7,9 +7,9 @@ import UserDetail from '../views/UserDetail.vue';
 import ProductDetail from '../views/ProductDetail.vue';
 
 const routes = [
-  { path: '/', redirect: '/login', meta: { requiresAuth: false} },
+  { path: '/', redirect: '/login' },
 
-  { path: '/login', component: Login, meta: { requiresAuth: false} },
+  { path: '/login', component: Login },
 
   { path: '/menu', component: Menu, meta: { requiresAuth: true } },
 

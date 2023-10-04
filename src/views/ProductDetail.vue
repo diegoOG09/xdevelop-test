@@ -25,11 +25,8 @@
       <p>Imagen:</p>
       <span>{{ product.image }}</span>
     </div>
-
     <img id="productImage" :src="product.image" alt="Imagen del producto">
-
     <button class="updateProductBtn" @click="showUpdateForm = true"><i class="fa-solid fa-file-pen"></i> Actualizar</button>
-
     <!-- Muestra el formulario solo cuando showUpdateForm es verdadero -->
     <form id="updateProductForm" v-if="showUpdateForm" @submit.prevent="updateProduct">
       <div>
@@ -54,7 +51,6 @@
       </div>
       <button class="updateProductBtn" type="submit"><i class="fa-solid fa-check"></i> Actualizar Producto</button>
     </form>
-
   </div>
   <LogoutBtn />
 </template>
@@ -64,7 +60,7 @@
 import { ref, onMounted } from 'vue';
 import LogoutBtn from '../components/LogoutBtn.vue';
 
-const productId = ref(null)
+const productId = ref(null);
 const product = ref({});
 const updatedProduct = ref({});
 const showUpdateForm = ref(false);
@@ -76,7 +72,7 @@ const props = defineProps({
 const id = props.id;
 
 onMounted(async () => {
-  productId.value = id
+  productId.value = id;
   try {
     const response = await fetch(`https://fakestoreapi.com/products/${productId.value}`);
     const productData = await response.json();
@@ -90,7 +86,7 @@ onMounted(async () => {
 const updateProduct = async () => {
   try {
     const response = await fetch(`https://fakestoreapi.com/products/${productId.value}`, {
-      method: 'PATCH', // O utiliza 'PUT' si la API lo requiere
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -101,7 +97,7 @@ const updateProduct = async () => {
       console.log('Producto actualizado con éxito:', updatedProductData);
       // Actualiza los datos del producto en el componente
       product.value = updatedProductData;
-      // Oculta el formulario de actualización después de la actualización exitosa
+      // Oculta el formulario de actualización después de la actualización 
       showUpdateForm.value = false;
     } else {
       console.error('Error al actualizar el producto:', response.status);
@@ -110,7 +106,6 @@ const updateProduct = async () => {
     console.error('Error al actualizar el producto:', error);
   }
 }
-
 </script>
 
 <style lang="scss">
@@ -121,25 +116,23 @@ const updateProduct = async () => {
 
 .updateProductBtn {
   background-color: $green;
-  border: none;
-  padding: 1rem 0 1rem 0;
   border-radius: 10px;
-  cursor: pointer;
+  border: none;
   color: $light;
-  font-weight: 700;
+  cursor: pointer;
   font-size: 1.2rem;
+  font-weight: 700;
+  padding: 1rem 0 1rem 0;
 }
 
 #updateProductForm {
+  background-color: $light;
+  border-radius: 20px;
+  color: $dark-green;
   display: flex;
   flex-direction: column;
-  margin-top: 4rem;
-  background-color: $light;
-  color: $dark-green;
-  padding: 1rem;
-  border-radius: 20px;
   gap: .5rem;
+  margin-top: 4rem;
+  padding: 1rem;
 }
-
-
 </style>

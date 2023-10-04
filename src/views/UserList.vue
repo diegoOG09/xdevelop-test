@@ -6,7 +6,6 @@
         <button id="userlist-table__idSortBtn" class="userlist-table__btn" @click="sortByField('id')"><i class="fa-solid fa-sort"></i>Ordenar por ID</button>
         <button id="userlist-table__emailSortBtn" class="userlist-table__btn" @click="sortByField('email')"><i class="fa-solid fa-sort"></i>Ordenar por Correo</button>
       </div>
-
       <table v-if="!isLoading" class="usersTable">
         <thead>
           <tr>
@@ -33,7 +32,6 @@
         </tbody>
       </table>
       <div v-else>
-        <!-- Aquí puedes agregar el código HTML de tu spinner -->
         <span class="loader"></span>
       </div>
       <div class="users-buttons-operations">
@@ -41,7 +39,6 @@
         <button class="operation-btn" @click="showNewUserForm"><i class="fa-solid fa-user-plus"></i> Agregar Usuario</button>
       </div>
     </div>
-
     <!-- Mostrar el formulario de agregar usuario si showAddUserForm es true -->
     <div v-if="showAddUserForm">
       <h2>Agregar Usuario</h2>
@@ -125,18 +122,6 @@ onMounted(async () => {
   }
 });
 
-const filteredUsers = computed(() => {
-  return users.value.map(user => ({
-    id: user.id,
-    username: user.username,
-    email: user.email,
-    name: {
-      firstname: user.name.firstname,
-      lastname: user.name.lastname,
-    }
-  }))
-})
-
 const sortUsers = () => {
   users.value.sort((a, b) => {
     const fieldA = a[sorting.value.field];
@@ -165,7 +150,6 @@ const sortByField = (field) => {
 
 const deleteVisibleUser = (userId) => {
   const index = visibleUsers.value.findIndex((user) => user.id === userId);
-
   if (index !== -1) {
     visibleUsers.value.splice(index, 1);
   }
@@ -195,7 +179,6 @@ const addUser = async () => {
 
       users.value.push(newUserResponse);
 
-      // Después de agregar con éxito, puedes limpiar el formulario y ocultar el formulario de agregar
       newUser.value = {
         username: '',
         email: '',
@@ -218,70 +201,64 @@ const addUser = async () => {
     console.error('Error al agregar usuario:', error);
   }
 }
-
 </script>
 
 <style lang="scss">
 @import '../style.scss';
-
 .loader {
-    width: 48px;
-    height: 48px;
-    border: 5px solid #FFF;
-    border-bottom-color: #FF3D00;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    }
+  width: 48px;
+  height: 48px;
+  border: 5px solid #FFF;
+  border-bottom-color: #FF3D00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
 
-    @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    } 
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
 
 .userlist {
   margin-top: 4rem;
   .userlist-table {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: 1rem;
+    justify-content: center;
     margin-bottom: 2rem;
-
     .userlist-table__buttons {
       display: flex;
       gap: 1rem;
       .userlist-table__btn {
+        align-items: center;
+        background-color: $light-green;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
         display: flex;
         flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        border-radius: 10px;
-        background-color: $light-green;
-        padding: .8rem .5rem;
-        cursor: pointer;
         gap: .4rem;
+        justify-content: center;
+        padding: .8rem .5rem;
         width: 10rem;
       }
     }
     .usersTable {
       color: $light;
       width: 100%;
-
       tr {
         height: 2rem;
       }
-
       th {
         background-color: $green;
-        
         &:first-child {
           border-radius: 5px 0 0 0;
         }
@@ -290,19 +267,18 @@ const addUser = async () => {
         }
       }
       td {
-        color: $dark-green;
         background-color: $light;
+        color: $dark-green;
         height: 30px;
       }
-
       .userBtn {
-        text-decoration: none;
-        color: $dark-green;
-        border: 1px solid $dark-green;
         border-radius: 5px;
-        padding: .1rem 1rem;
-        height: 1rem;
+        border: 1px solid $dark-green;
+        color: $dark-green;
         cursor: pointer;
+        height: 1rem;
+        padding: .1rem 1rem;
+        text-decoration: none;
       }
       .delete-user {
         height: 1.5rem;
@@ -312,24 +288,22 @@ const addUser = async () => {
       display: flex;
       flex-direction: row;
       gap: 1rem;
-
       .operation-btn {
+        align-items: center;
+        background-color: $light-green;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
         display: flex;
         flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        border-radius: 10px;
-        background-color: $light-green;
-        padding: .8rem .5rem;
-        cursor: pointer;
         gap: .4rem;
+        justify-content: center;
+        padding: .8rem .5rem;
         width: 10rem;
       }
     }
   }
 }
-
 @media only screen and (max-width: 428px) {
   .userlist {
     width: 100%;
@@ -338,19 +312,15 @@ const addUser = async () => {
         display: block;
         table-layout: fixed;
         width: 100%;
-
         th {
           font-size: .5rem;
         }
-
         tr {
           height: 3.5rem;
         }
-
         td {
           font-size: .7rem;
         }
-
         .delete-user {
           height: 2rem;
         }
