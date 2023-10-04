@@ -3,6 +3,7 @@
 
 
 Este proyecto fue hecho con Vue 3 + Vite.
+Proyecto en producción: https://xdevelop-test.netlify.app/
 
 ## 🚀 Para ejecutar el proyecto:
 
