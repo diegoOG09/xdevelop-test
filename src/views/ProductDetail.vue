@@ -139,10 +139,6 @@ const updateProduct = async () => {
   padding: 1rem;
   border-radius: 20px;
   gap: .5rem;
-
-  #updateBtnForm {
-
-  }
 }
 
 

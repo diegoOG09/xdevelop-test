@@ -53,10 +53,6 @@ import LogoutBtn from '../components/LogoutBtn.vue';
         margin-right: .5rem;
       }
     }
-
-    #btn-users {
-      
-    }
   }
 }
 

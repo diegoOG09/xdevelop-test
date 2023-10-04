@@ -80,7 +80,7 @@ onMounted(async () => {
   }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 428px) {
   .user-details {
     width: 90%;
 

@@ -146,7 +146,7 @@ const sortByPrice = () => {
   }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 428px) {
   .userlist-table > p {
     text-align: center;
   }

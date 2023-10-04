@@ -330,7 +330,7 @@ const addUser = async () => {
   }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 428px) {
   .userlist {
     width: 100%;
     .userlist-table {
