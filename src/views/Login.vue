@@ -108,4 +108,11 @@ const login = () => {
     }
   }
 }
+
+@media only screen and (max-width: 375px) {
+  .login {
+    margin-top: 20%;
+    width: 50%;
+  }
+}
 </style>
