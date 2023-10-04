@@ -40,9 +40,9 @@
       </div>
     </div>
     <!-- Mostrar el formulario de agregar usuario si showAddUserForm es true -->
-    <div v-if="showAddUserForm">
+    <div class="addUserForm" v-if="showAddUserForm">
       <h2>Agregar Usuario</h2>
-      <form @submit.prevent="addUser">
+      <form class="newUserForm" @submit.prevent="addUser">
         <!-- Campos del formulario para agregar un nuevo usuario -->
         <label for="email">Email:</label>
         <input type="email" id="email" v-model="newUser.email" required>
@@ -75,7 +75,7 @@
         <label for="phone">Phone:</label>
         <input type="tel" id="phone" v-model="newUser.phone" required>
 
-        <button type="submit">Agregar</button>
+        <button class="addUserBtn" type="submit">Agregar</button>
       </form>
     </div>
   </div>
@@ -92,8 +92,8 @@ const originalUsers = ref([]);
 const isLoading = ref(true);
 const showAddUserForm = ref(false);
 const newUser = ref({
-  username: '',
   email: '',
+  username: '',
   password: '',
   firstname: '',
   lastname: '',
@@ -121,7 +121,6 @@ onMounted(async () => {
     console.error('Error al obtener usuarios:', error);
   }
 });
-
 const sortUsers = () => {
   users.value.sort((a, b) => {
     const fieldA = a[sorting.value.field];
@@ -164,42 +163,35 @@ const showNewUserForm = () => {
 }
 
 const addUser = async () => {
-  try {
-    const response = await fetch('https://fakestoreapi.com/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newUser.value),
-    });
-
-    if (response.ok) {
-      const newUserResponse = await response.json();
-      console.log('Usuario agregado con éxito:', newUserResponse);
-
-      users.value.push(newUserResponse);
-
-      newUser.value = {
-        username: '',
-        email: '',
-        password: '',
-        firstname: '',
-        lastname: '',
-        city: '',
-        street: '',
-        number: 0,
-        zipcode: '',
-        lat: '',
-        long: '',
-        phone: '',
-      };
-      showAddUserForm.value = false;
-    } else {
-      console.error('Error al agregar usuario:', response.status);
-    }
-  } catch (error) {
-    console.error('Error al agregar usuario:', error);
-  }
+  visibleUsers.value.push({
+    id: Date.now(), //
+    email: newUser.value.email,
+    username: newUser.value.username,
+    password: newUser.value.password,
+    firstname: newUser.value.firstname,
+    lastname: newUser.value.lastname,
+    city: newUser.value.city,
+    street: newUser.value.street,
+    number: newUser.value.number,
+    zipcode: newUser.value.zipcode,
+    lat: newUser.value.lat,
+    long: newUser.value.long,
+    phone: newUser.value.phone,
+  });
+  newUser.value = {
+    email: '',
+    username: '',
+    password: '',
+    firstname: '',
+    lastname: '',
+    city: '',
+    street: '',
+    number: 0,
+    zipcode: '',
+    lat: '',
+    long: '',
+    phone: '',
+  };
 }
 </script>
 
@@ -303,6 +295,47 @@ const addUser = async () => {
       }
     }
   }
+  .addUserForm {
+    background-color: $light;
+    color: $dark-green;
+    width: 30%;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 1rem 0;
+    margin-bottom: 3rem;
+    h2 {
+      text-align: center;
+    }
+    .newUserForm {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: $dark-green;
+
+      input {
+        border: none;
+        padding: .5rem;
+        border-radius: 10px;
+        outline: none;
+      }
+
+      button {
+        margin-top: 1rem;
+        align-items: center;
+        background-color: $light-green;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        gap: .4rem;
+        justify-content: center;
+        padding: .8rem .5rem;
+        width: 10rem; 
+      }
+    }
+  }
+  
 }
 @media only screen and (max-width: 428px) {
   .userlist {
