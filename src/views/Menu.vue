@@ -18,7 +18,6 @@ import LogoutBtn from '../components/LogoutBtn.vue';
 
 <style lang="scss">
 @import '../style.scss';
-
 .menu {
   .header {
     align-items: center;
@@ -35,7 +34,10 @@ import LogoutBtn from '../components/LogoutBtn.vue';
     margin-bottom: 4rem;
     margin-top: 5%;
     p {
-      color: $green;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: $light-green;
+      text-shadow: 1px 1px 2px rgba(32, 31, 31, 0.6);
     }
     .menu-btn {
       background-color: $light-green;

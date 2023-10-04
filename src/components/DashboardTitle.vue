@@ -15,6 +15,7 @@
     color: $green;
     font-size: 4rem;
     padding-top: 4rem;
+    text-shadow: 4px 4px 2px rgba(0,0,0,0.6);
   }
 }
 </style>
