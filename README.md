@@ -1,5 +1,6 @@
 # 💚 Vue 3 + Vite
-![image](https://github.com/diegoOG09/xdevelop-test/assets/63070877/90cdc6db-f218-4809-9ccc-66b1e76a8eeb)
+![image](https://github.com/diegoOG09/xdevelop-test/assets/63070877/1cda5e0b-0b8a-4c2c-9322-8b8eca02579e)
+
 
 
 Este proyecto fue hecho con Vue 3 + Vite.
