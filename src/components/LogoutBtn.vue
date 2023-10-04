@@ -1,5 +1,7 @@
 <template>
-  <button id="logoutBtn" @click="logout">Cerrar sesión</button>
+  <div class="logoutBtn">
+    <button id="logoutBtn" @click="logout">Cerrar sesión</button>
+  </div>
 </template>
 
 <script setup>
@@ -14,14 +16,17 @@ const logout = () => {
 
 <style lang="scss">
 @import '../style.scss';
-#logoutBtn {
-  display: block;
-  margin: 0 auto;
-  background-color: #D80032;
-  color: $light;
-  border: none;
-  border-radius: 10px;
-  padding: .5rem;
-  cursor: pointer;
+.logoutBtn {
+  padding-bottom: 4rem;
+  #logoutBtn {
+    display: block;
+    margin: 0 auto;
+    background-color: #D80032;
+    color: $light;
+    border: none;
+    border-radius: 10px;
+    padding: .5rem;
+    cursor: pointer;
+  }
 }
 </style>
