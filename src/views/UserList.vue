@@ -6,7 +6,8 @@
         <button id="userlist-table__idSortBtn" class="userlist-table__btn" @click="sortByField('id')"><i class="fa-solid fa-sort"></i>Ordenar por ID</button>
         <button id="userlist-table__emailSortBtn" class="userlist-table__btn" @click="sortByField('email')"><i class="fa-solid fa-sort"></i>Ordenar por Correo</button>
       </div>
-      <table>
+
+      <table v-if="!isLoading" class="usersTable">
         <thead>
           <tr>
             <th>ID</th>
@@ -25,14 +26,20 @@
             <td>{{ user.name ? user.name.firstname : 'N/A' }}</td>
             <td>{{ user.name ? user.name.lastname : 'N/A' }}</td>
             <td>
-              <router-link :to="'/users/' + user.id">Ver más</router-link>
-              <button @click="deleteVisibleUser(user.id)">Eliminar</button>
+              <router-link class="user-more userBtn" :to="'/users/' + user.id"><i class="fa-solid fa-eye"></i> Ver</router-link>
+              <button class="delete-user userBtn" @click="deleteVisibleUser(user.id)"><i class="fa-solid fa-trash"></i> Eliminar</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <button @click="resetUsers">Resetear Usuarios</button>
-      <button @click="showNewUserForm">Agregar Usuario</button>
+      <div v-else>
+        <!-- Aquí puedes agregar el código HTML de tu spinner -->
+        <span class="loader"></span>
+      </div>
+      <div class="users-buttons-operations">
+        <button class="operation-btn" @click="resetUsers"><i class="fa-solid fa-clock-rotate-left"></i> Resetear Usuarios</button>
+        <button class="operation-btn" @click="showNewUserForm"><i class="fa-solid fa-user-plus"></i> Agregar Usuario</button>
+      </div>
     </div>
 
     <!-- Mostrar el formulario de agregar usuario si showAddUserForm es true -->
@@ -75,6 +82,7 @@
       </form>
     </div>
   </div>
+  <LogoutBtn />
 </template>
 
 <script setup>
@@ -84,6 +92,7 @@ import LogoutBtn from '../components/LogoutBtn.vue';
 const users = ref([]);
 const visibleUsers = ref([]);
 const originalUsers = ref([]);
+const isLoading = ref(true);
 const showAddUserForm = ref(false);
 const newUser = ref({
   username: '',
@@ -108,6 +117,9 @@ onMounted(async () => {
     users.value = data;
     originalUsers.value = data;
     visibleUsers.value = data;
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 0); 
   } catch (error) {
     console.error('Error al obtener usuarios:', error);
   }
@@ -211,13 +223,36 @@ const addUser = async () => {
 
 <style lang="scss">
 @import '../style.scss';
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: #FF3D00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 
+
 .userlist {
+  margin-top: 4rem;
   .userlist-table {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    margin-bottom: 2rem;
 
     .userlist-table__buttons {
       display: flex;
@@ -236,9 +271,61 @@ const addUser = async () => {
         width: 10rem;
       }
     }
+    .usersTable {
+      color: $light;
 
-    
+      tr {
+        height: 2rem;
+      }
 
+      th {
+        background-color: $green;
+        
+        &:first-child {
+          border-radius: 5px 0 0 0;
+        }
+        &:last-child {
+          border-radius: 0 5px 0 0;
+        }
+      }
+      td {
+        color: $dark-green;
+        background-color: $light;
+        height: 30px;
+      }
+
+      .userBtn {
+        text-decoration: none;
+        color: $dark-green;
+        border: 1px solid $dark-green;
+        border-radius: 5px;
+        padding: .1rem 1rem;
+        height: 1rem;
+        cursor: pointer;
+      }
+      .delete-user {
+        height: 1.5rem;
+      }
+    }
+    .users-buttons-operations {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+
+      .operation-btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 10px;
+        background-color: $light-green;
+        padding: .8rem .5rem;
+        cursor: pointer;
+        gap: .4rem;
+        width: 10rem;
+      }
+    }
   }
 }
 </style>
