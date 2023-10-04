@@ -25,7 +25,7 @@ npm run dev
 ```
 ## 🎨 Paleta de Colores
 
-A continuación, se muestra una paleta de colores que puedes utilizar en tu proyecto:
+A continuación, se muestra la paleta de colores utilizada en el proyecto:
 
 - ![#FF5733](https://via.placeholder.com/15/202529/000000?text=+) `#202529` (Negro)
 - ![#33FF57](https://via.placeholder.com/15/183D3D/000000?text=+) `#183D3D` (Verde oscuro)
