@@ -12,7 +12,6 @@ body {
   margin: 0;
   height: 100vh;
   scroll-behavior: smooth;
-  overflow-y: hidden;
 }
 .container {
   width: 70%;
@@ -28,4 +27,12 @@ h1,h2,p {
   padding-top: 4rem;
   margin-bottom: 1rem;
   text-align: center;
+}
+
+#wave {
+  position: fixed;
+  z-index: -1;
+  bottom: 0; /* Fija el SVG en la parte inferior de la ventana */
+  left: 0;   /* Puedes ajustar la posición horizontal si es necesario */
+  width: 100%; /* Asegura que el SVG ocupe el ancho completo de la ventana */
 }
