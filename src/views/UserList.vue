@@ -43,7 +43,6 @@
     <div class="addUserForm" v-if="showAddUserForm">
       <h2>Agregar Usuario</h2>
       <form class="newUserForm" @submit.prevent="addUser">
-        <!-- Campos del formulario para agregar un nuevo usuario -->
         <label for="email">Email:</label>
         <input type="email" id="email" v-model="newUser.email" required>
 
@@ -106,7 +105,6 @@ const newUser = ref({
   phone: '',
 });
 const sorting = ref({ field: 'id', direction: 'asc' });
-
 onMounted(async () => {
   try {
     const response = await fetch('https://fakestoreapi.com/users');
@@ -141,27 +139,22 @@ const sortUsers = () => {
     }
   });
 };
-
 const sortByField = (field) => {
   sorting.value.field = field;
   sortUsers();
 };
-
 const deleteVisibleUser = (userId) => {
   const index = visibleUsers.value.findIndex((user) => user.id === userId);
   if (index !== -1) {
     visibleUsers.value.splice(index, 1);
   }
 };
-
 const resetUsers = () => {
   visibleUsers.value = [...originalUsers.value];
 }
-
 const showNewUserForm = () => {
   showAddUserForm.value = true;
 }
-
 const addUser = async () => {
   visibleUsers.value.push({
     id: Date.now(), //
@@ -207,7 +200,6 @@ const addUser = async () => {
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
-
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
@@ -216,7 +208,6 @@ const addUser = async () => {
     transform: rotate(360deg);
   }
 } 
-
 .userlist {
   margin-top: 4rem;
   .userlist-table {
@@ -234,9 +225,11 @@ const addUser = async () => {
         background-color: $light-green;
         border-radius: 10px;
         border: none;
+        color: $light;
         cursor: pointer;
         display: flex;
         flex-direction: row;
+        font-weight: 700;
         gap: .4rem;
         justify-content: center;
         padding: .8rem .5rem;
@@ -285,9 +278,11 @@ const addUser = async () => {
         background-color: $light-green;
         border-radius: 10px;
         border: none;
+        color: $light;
         cursor: pointer;
         display: flex;
         flex-direction: row;
+        font-weight: 700;
         gap: .4rem;
         justify-content: center;
         padding: .8rem .5rem;
@@ -297,45 +292,45 @@ const addUser = async () => {
   }
   .addUserForm {
     background-color: $light;
-    color: $dark-green;
-    width: 30%;
-    margin: 0 auto;
     border-radius: 20px;
-    padding: 1rem 0;
+    color: $dark-green;
     margin-bottom: 3rem;
+    margin: 0 auto;
+    padding: 1rem 0;
+    width: 30%;
     h2 {
       text-align: center;
     }
     .newUserForm {
-      display: flex;
-      flex-direction: column;
       align-items: center;
       color: $dark-green;
-
+      display: flex;
+      flex-direction: column;
       input {
-        border: none;
-        padding: .5rem;
         border-radius: 10px;
+        border: none;
         outline: none;
+        padding: .5rem;
       }
-
       button {
-        margin-top: 1rem;
         align-items: center;
         background-color: $light-green;
         border-radius: 10px;
         border: none;
+        color: $light;
+        font-weight: 700;
+        font-size: 1.2rem;
         cursor: pointer;
         display: flex;
         flex-direction: row;
         gap: .4rem;
         justify-content: center;
+        margin-top: 1rem;
         padding: .8rem .5rem;
         width: 10rem; 
       }
     }
-  }
-  
+  } 
 }
 @media only screen and (max-width: 428px) {
   .userlist {

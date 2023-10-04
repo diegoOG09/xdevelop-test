@@ -125,6 +125,8 @@ const sortById = () => {
     border-radius: 10px;
     border: none;
     cursor: pointer;
+    color: $light;
+    font-weight: 700;
     display: flex;
     flex-direction: row;
     gap: .4rem;
