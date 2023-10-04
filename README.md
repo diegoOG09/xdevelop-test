@@ -41,7 +41,7 @@ A continuación, se muestra la paleta de colores utilizada en el proyecto:
 - Para la ilustración de la ola utilicé: https://getwaves.io/
 ### 🔠 FontAwesome
 - Para los iconos he usado FontAwesome: https://fontawesome.com/
-### 🎨 ColorHunter
+### 🎨 ColorHunt
 - Mi paleta de colores ha sido generada con: https://colorhunt.co/
 
 ## Aprender más
