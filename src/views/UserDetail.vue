@@ -1,12 +1,32 @@
 <template>
-  <h2 class="title">Usuario</h2>
+  <h2 class="title">Datos del usuario</h2>
+  <div class="user-details container">
+    <div class="user-record">
+      <p>Id:</p>
+      <span>{{ user.id }}</span>
+    </div>
+    <div class="user-record">
+      <p>Correo:</p>
+      <span>{{ user.email }}</span>
+    </div>
+    <div class="user-record">
+      <p>Usuario:</p>
+      <span>{{ user.username }}</span>
+    </div>
+    <div class="user-record">
+      <p>Nombre:</p>
+      <span>{{ user.name }}</span>
+    </div>
+    <div class="user-record">
+      <p>Direccion:</p>
+      <span>{{ user.address }}</span>
+    </div>
+    <div class="user-record">
+      <p>Telefono:</p>
+      <span>{{ user.phone }}</span>
+    </div>
+  </div>
   <LogoutBtn />
-  <span>Id: {{ user.id }}</span>
-  <p>Correo: {{ user.email }}</p>
-  <p>Username: {{ user.username }} </p>
-  <p>Nombre: {{ user.name }}</p>
-  <p>Direccion: {{ user.address }}</p>
-  <p>Telefono: {{ user.phone }}</p>
 </template>
 
 <script setup>
@@ -35,6 +55,28 @@ onMounted(async () => {
 
 </script>
 
-<style>
+<style lang="scss">
+@import '../style.scss';
+.user-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .5rem;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  width: 40%;
+  color: $light;
 
+  .user-record {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    p {
+      background-color: #774b14;
+      border-radius: 5px;
+      padding: .25rem .5rem;
+      color: #ff8c00;
+    }
+  }
+}
 </style>
