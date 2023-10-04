@@ -1,19 +1,37 @@
 <template>
-  <div>
-    <h2 class="title">Producto</h2>
-    <LogoutBtn />
-    <span>Id: {{ product.id }}</span>
-    <p>Producto: {{ product.title }}</p>
-    <p>Precio: {{ product.price }} </p>
-    <p>Categoria: {{ product.category }}</p>
-    <p>Descripcion: {{ product.description }}</p>
-    <p>Image: {{ product.image }}</p>
-    <img :src="product.image" alt="">
+  <h2 class="title">Detalles del producto</h2>
+  <div class="user-details container">
+    <div class="user-record">
+      <p>Id:</p>
+      <span>{{ product.id }}</span>
+    </div>
+    <div class="user-record">
+      <p>Producto:</p>
+      <span>{{ product.title }}</span>
+    </div>
+    <div class="user-record">
+      <p>Precio:</p>
+      <span>{{ product.price }}</span>
+    </div>
+    <div class="user-record">
+      <p>Categoria:</p>
+      <span>{{ product.category }}</span>
+    </div>
+    <div class="user-record">
+      <p>Descripcion:</p>
+      <span>{{ product.description }}</span>
+    </div>
+    <div class="user-record">
+      <p>Imagen:</p>
+      <span>{{ product.image }}</span>
+    </div>
 
-    <button @click="showUpdateForm = true">Actualizar</button>
+    <img id="productImage" :src="product.image" alt="Imagen del producto">
+
+    <button class="updateProductBtn" @click="showUpdateForm = true"><i class="fa-solid fa-file-pen"></i> Actualizar</button>
 
     <!-- Muestra el formulario solo cuando showUpdateForm es verdadero -->
-    <form v-if="showUpdateForm" @submit.prevent="updateProduct">
+    <form id="updateProductForm" v-if="showUpdateForm" @submit.prevent="updateProduct">
       <div>
         <label for="title">Título:</label>
         <input type="text" id="title" v-model="updatedProduct.title" />
@@ -34,10 +52,11 @@
         <label for="image">URL de la Imagen:</label>
         <input type="text" id="image" v-model="updatedProduct.image" />
       </div>
-      <button type="submit">Actualizar Producto</button>
+      <button class="updateProductBtn" type="submit"><i class="fa-solid fa-check"></i> Actualizar Producto</button>
     </form>
 
   </div>
+  <LogoutBtn />
 </template>
   
 
@@ -94,6 +113,37 @@ const updateProduct = async () => {
 
 </script>
 
-<style>
+<style lang="scss">
+@import '../style.scss';
+#productImage {
+  width: 20%;
+}
+
+.updateProductBtn {
+  background-color: $green;
+  border: none;
+  padding: 1rem 0 1rem 0;
+  border-radius: 10px;
+  cursor: pointer;
+  color: $light;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+#updateProductForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+  background-color: $light;
+  color: $dark-green;
+  padding: 1rem;
+  border-radius: 20px;
+  gap: .5rem;
+
+  #updateBtnForm {
+
+  }
+}
+
 
 </style>
